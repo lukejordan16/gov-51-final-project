@@ -1,0 +1,193 @@
+---
+title: "Gov 51 Final Project Code / Notes"
+output:
+  pdf_document: default
+  html_document: default
+---
+```{r}
+## reading data
+survey <- read.csv("https://raw.githubusercontent.com/themarshallproject/incarcerated_survey/master/data/incarcerated_survey_responses-marshallproject_slate-march_2019.csv")
+## removing any NA values from the data
+survey_no_NA <- na.omit(survey)
+```
+
+## Political Party
+
+```{r}
+## creating variables in the data frame with NA (party --> political_party)
+survey$political_party[survey$party == "The Republican party"] <- "Conservative"
+survey$political_party[survey$party == "The Democratic party"] <- "Liberal"
+survey$political_party[survey$party == "Independent"] <- "Indep"
+survey$political_party[survey$party == "Other"] <- "Other"
+
+political_party_and_facility_length_table <- table(survey$political_party, survey$length_in_this_facility)
+
+political_party_and_facility_length_prop_table <- prop.table(table(survey$political_party, survey$length_in_this_facility))
+
+
+## creating variables in the data frame with no NA (party --> political_party)
+survey_no_NA$political_party[survey_no_NA$party == "The Republican party"] <- "Conservative"
+survey_no_NA$political_party[survey_no_NA$party == "The Democratic party"] <- "Liberal"
+survey_no_NA$political_party[survey_no_NA$party == "Independent"] <- "Indep"
+survey_no_NA$political_party[survey_no_NA$party == "Other"] <- "Other"
+
+political_party_and_facility_length_table_no_NA <- table(survey_no_NA$political_party, survey_no_NA$length_in_this_facility)
+
+political_party_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$political_party, survey_no_NA$length_in_this_facility))
+```
+
+## Assault Weapons Ban
+
+```{r}
+## creating variables in the data frame with NA (stance_on_assault_weapons_ban --> assault_weapon_ban_stance)
+
+## creating binary scale of political ideology, where 0 = conservative and 1 = liberal
+
+survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Oppose"] <- 0
+survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Strongly oppose"] <- 0
+survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Support"] <- 1
+survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Strongly support"] <- 1
+
+
+assault_weapon_ban_and_facility_length_table <- table(survey$assault_weapon_ban_stance, survey$length_in_this_facility)
+
+assault_weapon_ban_and_facility_length_prop_table <- prop.table(table(survey$assault_weapon_ban_stance, survey$length_in_this_facility))
+
+## creating variables the data frame with no NA (stance_on_assault_weapons_ban --> assault_weapon_ban_stance)
+survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ban == "Oppose"] <- 0
+survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ban == "Strongly oppose"] <- 0
+survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ban == "Support"] <- 1
+survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ban == "Strongly support"] <- 1
+
+assault_weapon_ban_and_facility_length_table_no_NA <- table(survey_no_NA$assault_weapon_ban_stance, survey_no_NA$length_in_this_facility)
+
+assault_weapon_ban_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$assault_weapon_ban_stance, survey_no_NA$length_in_this_facility))
+
+## random stuff
+under_10_years <- subset(survey, length_in_this_facility == "10 years or less")
+over_10_years <- subset(survey, length_in_this_facility == "Over 10 years")
+```
+
+## Marijuana Legalization
+
+```{r}
+## creating variables in the data frame with NA (stance_on_marijuana_legalization --> marijuana_legalization_stance)
+
+## creating binary scale of political ideology, where 0 = conservative and 1 = liberal
+
+survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization == "Oppose"] <- 0
+survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization =="Strongly oppose"] <- 0
+survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization == "Support"] <- 1
+survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization == "Strongly support"] <- 1
+
+
+marijiuana_legalization_and_facility_length_table <- table(survey$marijuana_legalization_stance, survey$length_in_this_facility)
+
+marijuana_legalization_and_facility_length_prop_table <- prop.table(table(survey$marijuana_legalization_stance, survey$length_in_this_facility))
+
+## creating variables the data frame with no NA (stance_on_marijuana_legalization --> marijuana_legalization_stance)
+survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_legalization == "Oppose"] <- 0
+survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_legalization == "Strongly oppose"] <- 0
+survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_legalization == "Support"] <- 1
+survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_legalization == "Strongly support"] <- 1
+
+marijiuana_legalization_and_facility_length_table_no_NA <- table(survey_no_NA$marijuana_legalization_stance, survey_no_NA$length_in_this_facility)
+
+marijiuana_legalization_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$marijuana_legalization_stance, survey_no_NA$length_in_this_facility))
+```
+
+## Border Security
+
+```{r}
+## creating variables in the data frame with NA (stance_on_tightening_border_security --> border_security_stance)
+
+## creating binary scale of political ideology, where 1 = conservative and 0 = liberal
+
+survey$border_security_stance[survey$stance_on_tightening_border_security == "Oppose"] <- 1
+survey$border_security_stance[survey$stance_on_tightening_border_security =="Strongly oppose"] <- 1
+survey$border_security_stance[survey$stance_on_tightening_border_security == "Support"] <- 0
+survey$border_security_stance[survey$stance_on_tightening_border_security == "Strongly support"] <- 0
+
+
+border_security_and_facility_length_table <- table(survey$border_security_stance, survey$length_in_this_facility)
+
+border_security_and_facility_length_prop_table <- prop.table(table(survey$border_security_stance, survey$length_in_this_facility))
+
+## creating variables the data frame with no NA (stance_on_tightening_border_security --> border_security_stance)
+survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_security == "Oppose"] <- 1
+survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_security == "Strongly oppose"] <- 1
+survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_security == "Support"] <- 0
+survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_security == "Strongly support"] <- 0
+
+border_security_and_facility_length_table_no_NA <- table(survey_no_NA$border_security_stance, survey_no_NA$length_in_this_facility)
+
+border_security_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$border_security_stance, survey_no_NA$length_in_this_facility))
+```
+
+## Minimum Wage
+
+```{r}
+## creating variables in the data frame with NA (stance_on_raise_min_wage --> minimum_wage_stance)
+
+## creating binary scale of political ideology, where 0 = conservative and 1 = liberal
+
+survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Oppose"] <- 0
+survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Strongly oppose"] <- 0
+survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Support"] <- 1
+survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Strongly support"] <- 1
+
+
+minim_wage_and_facility_length_table <- table(survey$minimum_wage_stance, survey$length_in_this_facility)
+
+minimum_wage_and_facility_length_prop_table <- prop.table(table(survey$minimum_wage_stance, survey$length_in_this_facility))
+
+## creating variables the data frame with no NA (stance_on_raise_min_wage --> minimum_wage_stance)
+survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Oppose"] <- 0
+survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Strongly oppose"] <- 0
+survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Support"] <- 1
+survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Strongly support"] <- 1
+
+minimum_wage_and_facility_length_table_no_NA <- table(survey_no_NA$minimum_wage_stance, survey_no_NA$length_in_this_facility)
+
+minimum_wage_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$minimum_wage_stance, survey_no_NA$length_in_this_facility))
+```
+
+
+## Mean of Four Political Views (Arms Stance, Marijuana Legalization, Border Security, and Minimum Wage)
+
+```{r}
+## creating variable in the data frame with NA on mean of political attitudes
+
+survey$mean_four_political_views[(survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4 == 1] <- "Very liberal"
+survey$mean_four_political_views[(survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4 == 0.75] <- "Somewhat liberal"
+survey$mean_four_political_views[(survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4 == 0.5] <- "Politically neutral"
+survey$mean_four_political_views[(survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4 == 0.25] <- "Somewhat conservative"
+survey$mean_four_political_views[(survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4 == 0] <- "Very conservative"
+
+mean_four_political_views_and_facility_length_table <- table(survey$mean_four_political_views, survey$length_in_this_facility)
+
+mean_four_political_viewsand_facility_length_prop_table <- prop.table(table(survey$mean_four_political_views, survey$length_in_this_facility))
+
+## creating variable in the data frame with no NA on mean of political attitudes
+survey_no_NA$mean_four_political_views[(survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4 == 1] <- "Very liberal"
+survey_no_NA$mean_four_political_views[(survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4 == 0.75] <- "Somewhat liberal"
+survey_no_NA$mean_four_political_views[(survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4 == 0.5] <- "Politically neutral"
+survey_no_NA$mean_four_political_views[(survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4 == 0.25] <- "Somewhat conservative"
+survey_no_NA$mean_four_political_views[(survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4 == 0] <- "Very conservative"
+
+mean_four_political_views_and_facility_length_table_no_NA <- table(survey_no_NA$mean_four_political_views, survey_no_NA$length_in_this_facility)
+
+mean_four_political_viewsand_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$mean_four_political_views, survey_no_NA$length_in_this_facility))
+
+```
+
+
+
+```{r}
+## FORMER PROBLEM SET NOTES
+## gender_rep_table <- prop.table(table(judges$woman, judges$republican)) 
+## rownames(gender_rep_table) <- c("Male", "Female") colnames(gender_rep_table) <- c("Democrat", "Republican")
+## trains$age_group[trains$age >= 26 & trains$age <= 40] <- 2
+## judges$any_girls[judges$girls >= 1] <- "1"
+```
+
