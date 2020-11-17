@@ -70,7 +70,7 @@ political_party_and_facility_length_prop_table_no_NA <- prop.table(table(survey_
 ```{r}
 ## creating variables in the data frame with NA (stance_on_assault_weapons_ban --> assault_weapon_ban_stance)
 
-## creating scale of political ideology, where 0 = undecided, -1 = conservative and 1 = liberal
+## creating scale of political ideology, where 0 = undecided, -1 = conservative, and 1 = liberal
 
 survey$assault_weapon_ban_stance <- 0
 survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Oppose"] <- -1
@@ -105,7 +105,7 @@ over_10_years <- subset(survey, length_in_this_facility == "Over 10 years")
 ```{r}
 ## creating variables in the data frame with NA (stance_on_marijuana_legalization --> marijuana_legalization_stance)
 
-## creating scale of political ideology, where 0 = undecided, -1 = conservative and 1 = liberal
+## creating scale of political ideology, where 0 = undecided, -1 = conservative, and 1 = liberal
 
 survey$marijuana_legalization_stance <- 0
 survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization == "Oppose"] <- -1
@@ -136,7 +136,7 @@ marijiuana_legalization_and_facility_length_prop_table_no_NA <- prop.table(table
 ```{r}
 ## creating variables in the data frame with NA (stance_on_tightening_border_security --> border_security_stance)
 
-## creating scale of political ideology, where 0 = undecided, -1 = conservative and 1 = liberal
+## creating scale of political ideology, where 0 = undecided, -1 = conservative, and 1 = liberal
 
 survey$border_security_stance <- 0
 survey$border_security_stance[survey$stance_on_tightening_border_security == "Oppose"] <- 1
@@ -167,7 +167,7 @@ border_security_and_facility_length_prop_table_no_NA <- prop.table(table(survey_
 ```{r}
 ## creating variables in the data frame with NA (stance_on_raise_min_wage --> minimum_wage_stance)
 
-## creating scale of political ideology, where 0 = undecided, -1 = conservative and 1 = liberal
+## creating scale of political ideology, where 0 = undecided, -1 = conservative, and 1 = liberal
 
 survey$minimum_wage_stance <- 0
 survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Oppose"] <- -1
@@ -198,6 +198,7 @@ minimum_wage_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_
 
 ```{r}
 ## creating variable in the data frame with NA on mean of political attitudes
+## the higher the mean, the more liberal the prisoner
 
 survey$mean_four_political_views <- (survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4
 
@@ -253,20 +254,23 @@ ideology_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$i
 ## linear regression model comparing the mean of four political views and the length of time spent in prison
 
 mean_four_political_views_and_facility_length_fit <- lm(survey$mean_four_political_views ~ survey$length_in_this_facility)
-mean_four_political_views_and_facility_length_fit_plot <- plot(mean_four_political_views_and_facility_length_fit)
+
+mean_four_political_views_and_facility_length_fit_plot <- plot(mean_four_political_views_and_facility_length_fit) 
+
+mean_four_political_views_and_facility_length_fit_r_squared <- summary(mean_four_political_views_and_facility_length_fit)$r.squared
 
 ```
 
 ## Length in Facility Variable
 
 ```{r}
-## creating variable for length in facility with NA
+## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
 
 survey$facility_length <- 0
 survey$facility_length[survey$length_in_this_facility == "10 years or less"] <- -1
 survey$facility_length[survey$length_in_this_facility == "Over 10 years"] <- 1
 
-## creating variable for length in facility with NA
+## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
 survey_no_NA$facility_length <- 0
 survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "10 years or less"] <- -1
 survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "Over 10 years"] <- 1
