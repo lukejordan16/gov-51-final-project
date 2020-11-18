@@ -1,5 +1,5 @@
 ---
-title: "Gov 51 Final Project Code / Notes"
+title: "Gov 51 Final Project Analyses (11/18/20)"
 output:
   pdf_document: default
   html_document: default
@@ -236,6 +236,8 @@ knitr::kable(mean_four_political_views_and_facility_length_table, digits = 4, ca
 
 mean_four_political_viewsand_facility_length_prop_table <- prop.table(table(survey$mean_four_political_views, survey$length_in_this_facility))
 
+plot(mean_four_political_views_and_facility_length_table)
+
 ## creating variable in the data frame with no NA on mean of political attitudes
 
 survey_no_NA$mean_four_political_views <- (survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4
@@ -244,6 +246,8 @@ mean_four_political_views_and_facility_length_table_no_NA <- table(survey_no_NA$
 knitr::kable(mean_four_political_views_and_facility_length_table_no_NA, digits = 4, caption = "Average Political Stance Based on Jail Time (no NA)")
 
 mean_four_political_viewsand_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$mean_four_political_views, survey_no_NA$length_in_this_facility))
+
+plot(mean_four_political_views_and_facility_length_table_no_NA)
 
 ## creating new political ideology variable with NA
 
@@ -262,6 +266,8 @@ knitr::kable(ideology_and_facility_length_table, digits = 4, caption = "Average 
 
 ideology_and_facility_length_prop_table <- prop.table(table(survey$ideology, survey$length_in_this_facility))
 
+plot(ideology_and_facility_length_table)
+
 ## creating new political ideology variable with no NA
 
 survey_no_NA$ideology[survey_no_NA$mean_four_political_views == 1] <- "Very liberal"
@@ -278,6 +284,8 @@ ideology_and_facility_length_table_no_NA <- table(survey_no_NA$ideology, survey_
 knitr::kable(ideology_and_facility_length_table_no_NA, digits = 4, caption = "Average Political Ideology Based on Jail Time (no NA)")
 
 ideology_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$ideology, survey_no_NA$length_in_this_facility))
+ 
+plot(ideology_and_facility_length_table_no_NA)
 
 ```
 
