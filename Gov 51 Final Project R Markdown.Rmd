@@ -22,8 +22,9 @@ survey$race_prisoner[survey$identifies_as_black == "TRUE"] <- "Black"
 survey$race_prisoner[survey$identifies_as_white == "TRUE"] <- "White"
 
 race_prisoner_and_facility_length_table <- table(survey$race_prisoner, survey$length_in_this_facility)
+knitr::kable(race_prisoner_and_facility_length_table, digits = 4, caption = "Prisoner Race Based on Jail Time")
 
-race_prisoner_and_facility_length_prop_table <- prop.table(table(survey$race_prisoner, survey$length_in_this_facility))
+race_prisoner_and_facility_length_prop_table <- prop.table(table(survey$race_prisoner, survey$length_in_this_facility)) 
 
 
 ## creating race variable for data frame with no NA (race_prisoner)
@@ -33,6 +34,7 @@ survey_no_NA$race_prisoner[survey_no_NA$identifies_as_black == "TRUE"] <- "Black
 survey_no_NA$race_prisoner[survey_no_NA$identifies_as_white == "TRUE"] <- "White"
 
 race_prisoner_and_facility_length_table_no_NA <- table(survey_no_NA$race_prisoner, survey_no_NA$length_in_this_facility)
+knitr::kable(race_prisoner_and_facility_length_table_no_NA, digits = 4, caption = "Prisoner Race Based on Jail Time (no NA)")
 
 race_prisoner_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$race_prisoner, survey_no_NA$length_in_this_facility))
 
@@ -50,6 +52,7 @@ survey$political_party[survey$party == "Independent"] <- "Indep"
 survey$political_party[survey$party == "Other"] <- "Other"
 
 political_party_and_facility_length_table <- table(survey$political_party, survey$length_in_this_facility)
+knitr::kable(political_party_and_facility_length_table, digits = 4, caption = "Political Party of Prisoners Based on Jail Time")
 
 political_party_and_facility_length_prop_table <- prop.table(table(survey$political_party, survey$length_in_this_facility))
 
@@ -61,9 +64,26 @@ survey_no_NA$political_party[survey_no_NA$party == "Independent"] <- "Indep"
 survey_no_NA$political_party[survey_no_NA$party == "Other"] <- "Other"
 
 political_party_and_facility_length_table_no_NA <- table(survey_no_NA$political_party, survey_no_NA$length_in_this_facility)
+knitr::kable(political_party_and_facility_length_table_no_NA, digits = 4, caption = "Political Party of Prisoners Based on Jail Time (no NA)")
 
 political_party_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$political_party, survey_no_NA$length_in_this_facility))
 ```
+
+## Length in Facility
+
+```{r}
+## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
+
+survey$facility_length <- 0
+survey$facility_length[survey$length_in_this_facility == "10 years or less"] <- -1
+survey$facility_length[survey$length_in_this_facility == "Over 10 years"] <- 1
+
+## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
+survey_no_NA$facility_length <- 0
+survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "10 years or less"] <- -1
+survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "Over 10 years"] <- 1
+```
+
 
 ## Assault Weapons Ban
 
@@ -78,8 +98,10 @@ survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Strong
 survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Support"] <- 1
 survey$assault_weapon_ban_stance[survey$stance_on_assault_weapons_ban == "Strongly support"] <- 1
 
-
 assault_weapon_ban_and_facility_length_table <- table(survey$assault_weapon_ban_stance, survey$length_in_this_facility)
+
+knitr::kable(assault_weapon_ban_and_facility_length_table, digits = 4, caption = "Stance on Assault Weapons Ban Based on Jail Time")
+
 
 assault_weapon_ban_and_facility_length_prop_table <- prop.table(table(survey$assault_weapon_ban_stance, survey$length_in_this_facility))
 
@@ -92,6 +114,7 @@ survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ba
 survey_no_NA$assault_weapon_ban_stance[survey_no_NA$stance_on_assault_weapons_ban == "Strongly support"] <- 1
 
 assault_weapon_ban_and_facility_length_table_no_NA <- table(survey_no_NA$assault_weapon_ban_stance, survey_no_NA$length_in_this_facility)
+knitr::kable(assault_weapon_ban_and_facility_length_table_no_NA, digits = 4, caption = "Stance on Assault Weapons Ban Based on Jail Time (no NA)")
 
 assault_weapon_ban_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$assault_weapon_ban_stance, survey_no_NA$length_in_this_facility))
 
@@ -115,6 +138,7 @@ survey$marijuana_legalization_stance[survey$stance_on_marijuana_legalization == 
 
 
 marijiuana_legalization_and_facility_length_table <- table(survey$marijuana_legalization_stance, survey$length_in_this_facility)
+knitr::kable(marijiuana_legalization_and_facility_length_table, digits = 4, caption = "Stance on Marijuana Legalization Based on Jail Time")
 
 marijuana_legalization_and_facility_length_prop_table <- prop.table(table(survey$marijuana_legalization_stance, survey$length_in_this_facility))
 
@@ -127,6 +151,7 @@ survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_lega
 survey_no_NA$marijuana_legalization_stance[survey_no_NA$stance_on_marijuana_legalization == "Strongly support"] <- 1
 
 marijiuana_legalization_and_facility_length_table_no_NA <- table(survey_no_NA$marijuana_legalization_stance, survey_no_NA$length_in_this_facility)
+knitr::kable(marijiuana_legalization_and_facility_length_table_no_NA, digits = 4, caption = "Stance on Marijuana Legalization Based on Jail Time (no NA)")
 
 marijiuana_legalization_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$marijuana_legalization_stance, survey_no_NA$length_in_this_facility))
 ```
@@ -146,6 +171,7 @@ survey$border_security_stance[survey$stance_on_tightening_border_security == "St
 
 
 border_security_and_facility_length_table <- table(survey$border_security_stance, survey$length_in_this_facility)
+knitr::kable(border_security_and_facility_length_table, digits = 4, caption = "Stance on Border Security Based on Jail Time")
 
 border_security_and_facility_length_prop_table <- prop.table(table(survey$border_security_stance, survey$length_in_this_facility))
 
@@ -158,6 +184,7 @@ survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_sec
 survey_no_NA$border_security_stance[survey_no_NA$stance_on_tightening_border_security == "Strongly support"] <- -1
 
 border_security_and_facility_length_table_no_NA <- table(survey_no_NA$border_security_stance, survey_no_NA$length_in_this_facility)
+knitr::kable(border_security_and_facility_length_table_no_NA, digits = 4, caption = "Stance on Border Security Based on Jail Time (no NA)")
 
 border_security_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$border_security_stance, survey_no_NA$length_in_this_facility))
 ```
@@ -176,7 +203,8 @@ survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Support"] <- 1
 survey$minimum_wage_stance[survey$stance_on_raise_min_wage == "Strongly support"] <- 1
 
 
-minim_wage_and_facility_length_table <- table(survey$minimum_wage_stance, survey$length_in_this_facility)
+minimum_wage_and_facility_length_table <- table(survey$minimum_wage_stance, survey$length_in_this_facility)
+knitr::kable(minimum_wage_and_facility_length_table, digits = 4, caption = "Stance on Raising Minumum Wage Based on Jail Time")
 
 minimum_wage_and_facility_length_prop_table <- prop.table(table(survey$minimum_wage_stance, survey$length_in_this_facility))
 
@@ -189,6 +217,7 @@ survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Suppo
 survey_no_NA$minimum_wage_stance[survey_no_NA$stance_on_raise_min_wage == "Strongly support"] <- 1
 
 minimum_wage_and_facility_length_table_no_NA <- table(survey_no_NA$minimum_wage_stance, survey_no_NA$length_in_this_facility)
+knitr::kable(minimum_wage_and_facility_length_table_no_NA, digits = 4, caption = "Stance on Raising Minumum Wage Based on Jail Time (no NA)")
 
 minimum_wage_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$minimum_wage_stance, survey_no_NA$length_in_this_facility))
 ```
@@ -203,6 +232,7 @@ minimum_wage_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_
 survey$mean_four_political_views <- (survey$assault_weapon_ban_stance + survey$marijuana_legalization_stance + survey$border_security_stance + survey$minimum_wage_stance) / 4
 
 mean_four_political_views_and_facility_length_table <- table(survey$mean_four_political_views, survey$length_in_this_facility)
+knitr::kable(mean_four_political_views_and_facility_length_table, digits = 4, caption = "Average Political Stance Based on Jail Time")
 
 mean_four_political_viewsand_facility_length_prop_table <- prop.table(table(survey$mean_four_political_views, survey$length_in_this_facility))
 
@@ -211,6 +241,7 @@ mean_four_political_viewsand_facility_length_prop_table <- prop.table(table(surv
 survey_no_NA$mean_four_political_views <- (survey_no_NA$assault_weapon_ban_stance + survey_no_NA$marijuana_legalization_stance + survey_no_NA$border_security_stance + survey_no_NA$minimum_wage_stance) / 4
 
 mean_four_political_views_and_facility_length_table_no_NA <- table(survey_no_NA$mean_four_political_views, survey_no_NA$length_in_this_facility)
+knitr::kable(mean_four_political_views_and_facility_length_table_no_NA, digits = 4, caption = "Average Political Stance Based on Jail Time (no NA)")
 
 mean_four_political_viewsand_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$mean_four_political_views, survey_no_NA$length_in_this_facility))
 
@@ -227,6 +258,7 @@ survey$ideology[(survey$mean_four_political_views < 0) & (survey$mean_four_polit
 survey$ideology[survey$mean_four_political_views == -1] <- "Very conservative"
 
 ideology_and_facility_length_table <- table(survey$ideology, survey$length_in_this_facility)
+knitr::kable(ideology_and_facility_length_table, digits = 4, caption = "Average Political Ideology Based on Jail Time")
 
 ideology_and_facility_length_prop_table <- prop.table(table(survey$ideology, survey$length_in_this_facility))
 
@@ -243,6 +275,7 @@ survey_no_NA$ideology[(survey_no_NA$mean_four_political_views < 0) & (survey_no_
 survey_no_NA$ideology[survey_no_NA$mean_four_political_views == -1] <- "Very conservative"
 
 ideology_and_facility_length_table_no_NA <- table(survey_no_NA$ideology, survey_no_NA$length_in_this_facility)
+knitr::kable(ideology_and_facility_length_table_no_NA, digits = 4, caption = "Average Political Ideology Based on Jail Time (no NA)")
 
 ideology_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$ideology, survey_no_NA$length_in_this_facility))
 
@@ -251,32 +284,30 @@ ideology_and_facility_length_prop_table_no_NA <- prop.table(table(survey_no_NA$i
 ## Regression
 
 ```{r}
-## linear regression model comparing the mean of four political views and the length of time spent in prison
+## linear regression model comparing the mean of four political views and the length of time spent in prison with NA
 
 mean_four_political_views_and_facility_length_fit <- lm(survey$mean_four_political_views ~ survey$length_in_this_facility)
+mean_four_political_views_and_facility_length_fit
 
 mean_four_political_views_and_facility_length_fit_plot <- plot(mean_four_political_views_and_facility_length_fit) 
 
 mean_four_political_views_and_facility_length_fit_r_squared <- summary(mean_four_political_views_and_facility_length_fit)$r.squared
+mean_four_political_views_and_facility_length_fit_r_squared
+
+## linear regression model comparing the mean of four political views and the length of time spent in prison with no NA
+
+mean_four_political_views_and_facility_length_fit_no_NA <- lm(survey_no_NA$mean_four_political_views ~ survey_no_NA$length_in_this_facility)
+mean_four_political_views_and_facility_length_fit_no_NA
+
+mean_four_political_views_and_facility_length_fit_no_NA_plot <- plot(mean_four_political_views_and_facility_length_fit_no_NA) 
+
+mean_four_political_views_and_facility_length_fit__no_NA_r_squared <- summary(mean_four_political_views_and_facility_length_fit_no_NA)$r.squared
+mean_four_political_views_and_facility_length_fit__no_NA_r_squared
 
 ```
 
-## Length in Facility Variable
 
-```{r}
-## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
-
-survey$facility_length <- 0
-survey$facility_length[survey$length_in_this_facility == "10 years or less"] <- -1
-survey$facility_length[survey$length_in_this_facility == "Over 10 years"] <- 1
-
-## creating variable for length in facility with NA (length_in_this_facility --> facility_length)
-survey_no_NA$facility_length <- 0
-survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "10 years or less"] <- -1
-survey_no_NA$facility_length[survey_no_NA$length_in_this_facility == "Over 10 years"] <- 1
-```
-
-
+## Random
 
 ```{r}
 ## FORMER PROBLEM SET NOTES
